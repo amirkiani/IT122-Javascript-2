@@ -1,27 +1,25 @@
 {
   "name": "it122",
   "version": "1.0.0",
-  "description": "node.js repo",
+  "description": "node.js repo.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: Test unspecified\"
+    "test": "echo \"Error: Test unspecified"
   },
-   "repository": {
-   "type": "git",
-   "url": "git+https://github.com/amirkiani/IT122-Javascript-2.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amirkiani/IT122-Javascript-2.git"
   },
   "author": "Ameer Kiani",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/amirkiani/IT122-Javascript-2/issues"
+   "url": "https://github.com/amirkiani/IT122-Javascript-2/issues"
   },
   "homepage": "https://github.com/amirkiani/IT122-Javascript-2#readme",
-  
   "dependencies": {
-   "body-parser": "^1.19.0",
-   "express": "^4.17.1",
-   "express-handlebars": "^5.0.0",
-   "nodemon": "^2.0.4"
-  
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.0.0",
+    "nodemon": "^2.0.4"
   }
 }
