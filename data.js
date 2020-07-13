@@ -21,4 +21,4 @@ exports.getAll = () => {
 // find feature to get the title to match parameter
 exports.getDetail = auth => {
     const book = books.find(books => books.auth === auth);
-    return books;
+    return books;}
