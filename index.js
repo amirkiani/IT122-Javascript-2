@@ -1,39 +1,61 @@
 /*  IT 122 - JavaScript 2 - 
-Week 1 - Node.js up and running
+Week 2 - Express yourself
     Authored By: Ameer Kiani
-    Date: 07/05/2020
+    Date: 07/11/2020
 */
 
 // Create variables for http and data/books
-const http = require("http");
-const books = require("./data");
+// Define express app
+
+const express = require("express");
+const bodyParser = require("body-parser");
+const movies = require("./data");
+
+const app = express();
+const exphbs = require('express-handlebars');
+
+app.engine('handlebars', exphbs({
+    defaultLayout: false
+}));
+
+app.set('view engine', 'handlebars');
+
+app.set('port', process.env.PORT || 3000);
+
+// Location for static files
+app.use(express.static(__dirname + '/public' ));
+
+// Parser for form submissions
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Create variable to get data from data.js
 let showBooks = books.getAll();
 
-// Create web server
-http.createServer(function (req, res) {
-    const path = req.url.toLowerCase();
-    switch(path) {
+app.get('/', (req, res) => {
+    res.type('text/html');
+    res.render('home', {books: showBooks});
+});
 
-//Create switch
-    case '/':
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('Home page \n'+ 'Array length: '+ showBooks.length);
-        break;
+app.get('/detail', (req, res) => {
+    const booktitle = req.query.title
+    res.render('detail', {title: booktitle, stats: books.getDetail(bookstitle)});
+});
 
-// Display basic text info response
-        case '/about':
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end('About page \n This is Ameer Kiani, \n I\'am pursuing my programming degree. This is my third quarter at SCC and I love it so far');
-            break;
+
+// Text response
+app.get('/about', (req, res) => {
+    res.type('text/plain');
+    res.send('About page \n This is Ameer Kiani, \n I\'am pursuing my programming degree. This is my third quarter at SCC and I love it so far');
+});
+      
 
 // Error message
-        default:
-            res.writeHead(404, {'Content-Type': 'text/plain'});
-            res.end('Error - Page Not found');
-            break;
-    }
+app.use( (req, res) => {
+    res.type('text/plain');
+    res.status(404);
+    res.send('404 - Not Found');
+});
 
-// Listen to default port
-}).listen(process.env.PORT || 3000);
+app.listen(app.get('port'), () => {
+    console.log('Express started');
+});
