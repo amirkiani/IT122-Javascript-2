@@ -18,7 +18,31 @@ exports.getAll = () => {
     return books;
 }
 
-// find feature to get the title to match parameter
-exports.getDetail = auth => {
-    const book = books.find(books => books.auth === auth);
-    return books;}
+
+exports.getBook = (bookSearch) => {
+        let foundBook = books.find(book => book.auth === bookSearch)
+        return foundBook;
+    }
+    
+    
+exports.addBook = (newBook) => {
+    
+        let result = this.getBook(newBook.auth);
+        if (result){
+            return {"added": false, "message": "incomplete info"}
+        }
+    
+            books.push(newBook);
+            return {"added": true};
+    }
+    
+    
+exports.delBook = (model) => {
+            let bookPostion = books.findIndex(books => books.auth === auth);
+            if(bookPostion > -1) {
+                books.splice(bookPostion, 1);
+                return {"deleted": true};
+            }
+            return {"deleted": false, "message": "Item removed"}
+          
+    }

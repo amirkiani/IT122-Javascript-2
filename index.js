@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 
 app.get('/detail', (req, res) => {
     const booktitle = req.query.title
-    res.render('detail', {title: booktitle, stats: books.getDetail(bookstitle)});
+    res.render('detail', {title: booktitle, stats: books.getDetail(booktitle)});
 });
 
 
