@@ -1,12 +1,3 @@
-/*  IT 122 - JavaScript 2 - 
-Week 2 - Express yourself
-    Authored By: Ameer Kiani
-    Date: 07/11/2020
-*/
-
-// Create variables for http and data/books
-// Define express app
-
 const express = require("express");
 const bodyParser = require("body-parser");
 
