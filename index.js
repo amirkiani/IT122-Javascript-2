@@ -9,7 +9,10 @@ Week 2 - Express yourself
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const books = require("./data");
+
+//const books = require("./data");
+
+const books = require("./models/books");
 
 const app = express();
 const exphbs = require('express-handlebars');
@@ -41,6 +44,21 @@ app.get('/detail', (req, res) => {
     res.render('detail', {title: booktitle, stats: books.getDetail(booktitle)});
 });
 
+app.get('/delete', (req, res) => {
+    const booktitle = req.query.title;
+    books.findByIDAndDelete({title: booktitle}, (err, book) => {
+        
+        if (err) {
+            console.log(err);
+        } else if (!book) {
+            console.log(booktitle + "Book not found");
+            res.send(`${booktitle} not found`);
+        } else if (movie) {
+            console.log(booktitle + "Removed");
+            res.send(`${booktitle} Removed`);
+        }
+    });
+});
 
 // Text response
 app.get('/about', (req, res) => {
@@ -56,6 +74,4 @@ app.use( (req, res) => {
     res.send('404 - Not Found');
 });
 
-app.listen(app.get('port'), () => {
-    console.log('Express started');
-});
+//app.listen(app.get('port'), () => {console.log('Express started');});

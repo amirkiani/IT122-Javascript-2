@@ -1,10 +1,3 @@
-/*  IT 122 - JavaScript 2 - 
-Week 1 - Node.js up and running
-    Authored By: Ameer Kiani
-    Date: 07/05/2020
-*/
-
-// Create array of 5 objects with 4 attributes each
 const books = [
     {title : 'Sphere', auth: 'Michael Crichton', year: 1987, pages: '385'},
     {title: 'Watchmen', auth: 'Alan Moore', year: 1987, pages: '487'},
@@ -14,22 +7,22 @@ const books = [
 ];
 
 // an exported getAll method that returns all array items
-exports.getAll = () => {
+export function getAll() {
     return books;
 }
 
 
-exports.getBook = (bookSearch) => {
+export function getBook(bookSearch) {
         let foundBook = books.find(book => book.auth === bookSearch)
         return foundBook;
     }
     
     
-exports.addBook = (newBook) => {
+export function addBook(newBook) {
     
         let result = this.getBook(newBook.auth);
         if (result){
-            return {"added": false, "message": "incomplete info"}
+            return {"added": false, "message": "Not found"}
         }
     
             books.push(newBook);
@@ -37,12 +30,12 @@ exports.addBook = (newBook) => {
     }
     
     
-exports.delBook = (model) => {
+export function delBook(model) {
             let bookPostion = books.findIndex(books => books.auth === auth);
             if(bookPostion > -1) {
                 books.splice(bookPostion, 1);
-                return {"deleted": true};
+                return {"Book deleted": true};
             }
-            return {"deleted": false, "message": "Item removed"}
+            return {"Deleted": false, "message": "Book removed"}
           
     }
