@@ -1,3 +1,5 @@
+'use strict'
+
 const Book = require("../models/books")
 
 //book.find({}, (err, result) => {

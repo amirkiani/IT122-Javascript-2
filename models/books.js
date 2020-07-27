@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const credentials = require("./credentials");
 
-mongoose.connect(connectionString, { dbName: "sccprojects", useNewUrlParser: true }); 
+mongoose.connect(connectionString, { dbName: "sccprojects", useNewUrlParser: true });
 
 mongoose.connection.on('open', () => {
   console.log('Mongoose connected.');
