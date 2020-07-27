@@ -1,4 +1,4 @@
-const Book = require("./models/books")
+const Book = require("../models/books")
 
 //book.find({}, (err, result) => {
 //    if (err) {
