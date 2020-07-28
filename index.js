@@ -1,10 +1,11 @@
 'use strict'
 
 const express = require("express");
+const bodyParser = require("body-parser");
 
-//const books = require("./data");
+const books = require("./data");
 
-const books = require("./models/books");
+const Book = require("./models/books");
 
 const app = express();
 const exphbs = require('express-handlebars');
@@ -21,20 +22,30 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public' ));
 
 // Parser for form submissions
-app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.urlencoded({extended: true}));
 
 // Create variable to get data from data.js
 let showBooks = books.getAll();
 
-app.get('/', (req, res) => {
-    res.type('text/html');
-    res.render('home', {books: showBooks});
-});
+
+app.get('/', (req, res, next) => {
+    return Book.find({}).lean()
+      .then((books) => {
+          res.render('home', { books });
+      })
+      .catch(err => next(err));
+  });
 
 app.get('/detail', (req, res) => {
     const booktitle = req.query.title
-    res.render('detail', {title: booktitle, stats: books.getDetail(booktitle)});
+    Book.findOne({"title": booktitle }).lean()
+  .then((book) => {
+      console.log(book);
+      res.render('detail', {title: booktitle, stats: book});
+  })
+  .catch(err => next(err));
 });
+
 
 app.get('/delete', (req, res) => {
     const booktitle = req.query.title;
@@ -66,4 +77,4 @@ app.use( (req, res) => {
     res.send('404 - Not Found');
 });
 
-//app.listen(app.get('port'), () => {console.log('Express started');});
+app.listen(app.get('port'), () => {console.log('Express started');});

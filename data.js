@@ -7,18 +7,18 @@ const books = [
 ];
 
 // an exported getAll method that returns all array items
-export function getAll() {
+exports.getAll = () => {
     return books;
 }
 
 
-export function getBook(bookSearch) {
+exports.getBook = (bookSearch) => {
         let foundBook = books.find(book => book.auth === bookSearch)
         return foundBook;
     }
     
     
-export function addBook(newBook) {
+exports.addBook = (newBook) => {
     
         let result = this.getBook(newBook.auth);
         if (result){
@@ -30,7 +30,7 @@ export function addBook(newBook) {
     }
     
     
-export function delBook(model) {
+exports.delBook = (model) => {
             let bookPostion = books.findIndex(books => books.auth === auth);
             if(bookPostion > -1) {
                 books.splice(bookPostion, 1);
