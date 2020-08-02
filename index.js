@@ -77,4 +77,25 @@ app.use( (req, res) => {
     res.send('404 - Not Found');
 });
 
-app.listen(app.get('port'), () => {console.log('Express started');});
+app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
+
+app.get('/api/books', (req, res) => {
+    return Book.find({}).lean()
+      .then((books) => {
+          // res.json sets appropriate status code and response header
+          res.json(books);
+      })
+      .catch(err => {return res.status(500).send('Error occurred: database error.');
+  });
+
+  res.json(books.map((a) => {
+    // return only public book attributes
+    return {
+      title: a.title,
+      author: a.author,
+      description: a.description
+    }
+  })
+);
+
+app.listen(app.get('port'), () => {console.log('Express started');})})
