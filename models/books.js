@@ -7,6 +7,12 @@ mongoose.connection.on('open', () => {
   console.log('Mongoose connected.');
 });
 
+mongoose.set('useFindAndModify', false);
+
+mongoose.connection.on('open', () => {
+  console.log('Mongoose connected.');
+});
+
 const mySchema = mongoose.Schema({
  title: { type: String, required: true },
  author: String,

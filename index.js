@@ -56,12 +56,27 @@ app.get('/delete', (req, res) => {
         } else if (!book) {
             console.log(booktitle + "Book not found");
             res.send(`${booktitle} not found`);
-        } else if (movie) {
+        } else if (book) {
             console.log(booktitle + "Removed");
             res.send(`${booktitle} Removed`);
         }
     });
 });
+
+app.delete('/api/bookss/:title', (req, res) => {
+    const booktitle = req.params.title; 
+    books.findOneAndDelete({title: booktitle})
+    .then(book => {
+        if(book === null) {
+            return res.status(400).send(`Error: "${booktitle}" not found`)   
+        } else {
+            res.json(book)}
+    })
+
+    .catch(err => {
+        res.status(500).send('Dabatase error', err)
+    })
+})
 
 // Text response
 app.get('/about', (req, res) => {
