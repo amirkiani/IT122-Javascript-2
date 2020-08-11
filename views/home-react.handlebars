@@ -12,7 +12,12 @@
 <div id="root"></div>
 <script type="text/babel">
     // define your sub components here
-    const Book = props => {  
+    const ItemList = (props) => {
+        return props.items.map((item) => {
+            return <li>{item.title}</li>
+        });
+            
+            const Book = props => {  
         return (
             <div>
                 <ul>
@@ -27,12 +32,18 @@
     const BookDetails = props => {
         return (
             <div>
-                <h2>{props.current.title}</h2>               
+                <h2>Details for {props.current.title}</h2>               
                 <ul>
                     <li className="stats">Author: {props.current.auth}</li>
                     <li className="stats">Year of Release: {props.current.year}</li>
                     <li className="stats">Number of Pages: {props.current.pages}</li>
                 </ul>
+                    <form>
+                        title: <input type="text" value={props.item.title} || ""} /><br/>
+                        author: <input type="text" value={props.item.title} || "" /><br/>
+                        pages: <input type="text" value={props.item.title} || "" /> <br/>
+                        </form>
+                        <button onClick={props.handleClear}>Clear</button>
                 <p className="home"><a href="#" onClick={props.reset} >Go back to list</a></p>
             </div>
         )
@@ -49,6 +60,20 @@
 
           // bind application state to click handler
           this.selectItem = this.selectItem.bind(this);
+       }
+        handleDelete () {
+            console.log('delete me')
+        }
+       render() {
+           return (
+               <div>
+                   <h2>Book List</h2>
+                   <ItemList items={this.state.items} />
+                   <hr>
+                   <ItemDetail item={this.state.currentItem} />
+                   </div>
+           ):
+           )
        }
 
       // handle list item clicked

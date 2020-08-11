@@ -47,6 +47,7 @@ app.get('/detail', (req, res) => {
 });
 
 
+
 app.get('/delete', (req, res) => {
     const booktitle = req.query.title;
     books.findByIDAndDelete({title: booktitle}, (err, book) => {
@@ -63,7 +64,8 @@ app.get('/delete', (req, res) => {
     });
 });
 
-app.delete('/api/bookss/:title', (req, res) => {
+
+app.delete('/api/books/:title', (req, res) => {
     const booktitle = req.params.title; 
     books.findOneAndDelete({title: booktitle})
     .then(book => {
@@ -78,19 +80,17 @@ app.delete('/api/bookss/:title', (req, res) => {
     })
 })
 
+
 // Text response
 app.get('/about', (req, res) => {
     res.type('text/plain');
     res.send('About page \n This is Ameer Kiani, \n I\'am pursuing my programming degree. This is my third quarter at SCC and I love it so far');
 });
+
       
 
 // Error message
-app.use( (req, res) => {
-    res.type('text/plain');
-    res.status(404);
-    res.send('404 - Not Found');
-});
+
 
 app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
 
@@ -100,17 +100,15 @@ app.get('/api/books', (req, res) => {
           // res.json sets appropriate status code and response header
           res.json(books);
       })
-      .catch(err => {return res.status(500).send('Error occurred: database error.');
-  });
+      .catch(err => res.status(500).send('Error occurred: database error.'));
 
-  res.json(books.map((a) => {
-    // return only public book attributes
-    return {
-      title: a.title,
-      author: a.author,
-      description: a.description
-    }
-  })
-);
+});
 
-app.listen(app.get('port'), () => {console.log('Express started');})})
+
+app.use( (req, res) => {
+    res.type('text/plain');
+    res.status(404);
+    res.send('404 - Not Found');
+});
+
+app.listen(app.get('port'), () => {console.log('Express started');})

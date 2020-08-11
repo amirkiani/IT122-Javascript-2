@@ -3,11 +3,7 @@ const credentials = require("./credentials");
 
 mongoose.connect(credentials.connectionString, { dbName: "sccprojects", useNewUrlParser: true });
 
-mongoose.connection.on('open', () => {
-  console.log('Mongoose connected.');
-});
-
-mongoose.set('useFindAndModify', false);
+//mongoose.set('useFindAndModify', false);
 
 mongoose.connection.on('open', () => {
   console.log('Mongoose connected.');
