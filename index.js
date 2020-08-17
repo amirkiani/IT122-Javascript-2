@@ -22,13 +22,14 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public' ));
 
 // Parser for form submissions
-//app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
+app.use('/api', require('cors')());
 // Create variable to get data from data.js
 let showBooks = books.getAll();
 
 
-app.get('/', (req, res, next) => {
+app.get('/api/books', (req, res) => {
     return Book.find({}).lean()
       .then((books) => {
           res.render('home', { books });
@@ -78,6 +79,16 @@ app.delete('/api/books/:title', (req, res) => {
     .catch(err => {
         res.status(500).send('Dabatase error', err)
     })
+})
+
+app.post('/api/books/:title', (req, res) => {
+    const booktitle = req.params.title;
+    books.findOneAndUpdate({title: booktitle}, req.body, {upsert: true, new: true})
+    .then(book => {
+        res.json(book)
+    })
+    .catch((err) => console.log(err))
+
 })
 
 
